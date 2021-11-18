@@ -31,14 +31,13 @@ target_compile_options(
 target_include_directories(
     signalsampler-test PRIVATE
     include
-    ../include
 )
 
 target_link_libraries(
     signalsampler-test
     PRIVATE
+    signalsampler
     Catch2::Catch2
-    unwind
 )
 
 if(ENABLE_COVERAGE)

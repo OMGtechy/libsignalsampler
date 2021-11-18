@@ -33,12 +33,11 @@ target_include_directories(
     signalsampler-benchmark
     PUBLIC
     include
-    ../include
 )
 
 target_link_libraries(
     signalsampler-benchmark
     benchmark::benchmark
-    unwind
+    signalsampler
 )
 

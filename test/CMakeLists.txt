@@ -10,6 +10,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(catch)
 
+option(ENABLE_COVERAGE "Enable code coverage flags." OFF)
 option(ENABLE_ASAN "Enable address sanitizer flags." OFF)
 option(ENABLE_UBSAN "Enable undefined behaviour sanitizer flags." OFF)
 
@@ -35,9 +36,23 @@ target_include_directories(
 
 target_link_libraries(
     signalsampler-test
+    PRIVATE
     Catch2::Catch2
     unwind
 )
+
+if(ENABLE_COVERAGE)
+    target_compile_options(
+        signalsampler-test
+        PRIVATE
+        --coverage
+    )
+    target_link_libraries(
+        signalsampler-test
+        PRIVATE
+        gcov
+    )
+endif()
 
 if(ENABLE_ASAN OR ENABLE_UBSAN)
     target_compile_options(
